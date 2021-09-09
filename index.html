@@ -14,12 +14,67 @@
     </style>
 
     <!-- !style -->
-    <link rel="stylesheet" href="/qNotes.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/qNotes.css">
 
 </head>
 <body>
-    
+
+    <div class="container" style="max-width: 58rem;">
+        <!-- !Navbar -->
+        <nav class="navbar navbar-light bg-light mt-3 mb-5" style="border-radius: 20px; padding: 15px;">
+            <div class="container-fluid">
+              <a class="navbar-brand" style="font-size: 2rem; font-weight: 5rem;">Quick Notes</a>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="padding: 10px; border-radius: 5px; text-align: center;">
+              </form>
+            </div>
+        </nav>
+
+        <!-- !Notes parameters -->
+        <form>
+            <!-- !title -->
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" style="border-radius: 5px; padding: 13px;">
+            </div>
+
+            <!-- !Desc -->
+            <div class="mb-5">
+                <label class="form-label">Note</label>
+                <input type="text" class="form-control" id="note" style="border-radius: 5px; padding: 13px;">
+            </div>
+
+            <!-- !Add -->
+            <div class="mb-3">
+                <input type="submit" class="form-control btn btn-block btn-dark" id="add" value="Add" style="text-align: center; background-color: rgb(77, 178, 218); font-size: 1.6rem; border-radius: 5px; font-weight: lighter; color: black;">
+            </div>
+        </form>
+    </div>
+
+    <div class="container mt-5" style="max-width: 57rem;">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Notes</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+
+            <tbody id="table-body">
+
+              <tr>
+                <th scope="row">First</th>
+                <td>My-notes</td>
+                <td><button class="btn btn-danger">🗑️</button></td>
+              </tr>
+
+            </tbody>
+          </table>
+    </div>    
+
 </body>
 <!-- !Javascript -->
 <script src="/qNotes.js"></script>

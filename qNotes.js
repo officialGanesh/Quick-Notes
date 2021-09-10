@@ -9,22 +9,48 @@ class makeNotes{
 };
 
 
+// Storage
+class storage{
+
+    static getNotes(){
+        let notes;
+        if(localStorage.getItem('notes')===null){
+            notes = [];
+
+        }else{
+            notes = JSON.parse(localStorage.getItem("notes"));
+        }
+        return notes;
+    };
+
+    static addNotes(note){
+        let notes = storage.getNotes();
+        notes.push(note);
+        localStorage.setItem("notes",JSON.stringify(notes));
+    };
+
+    static removeNotes(num){
+
+        let notes = storage.getNotes();
+        notes.forEach((e,i)=>{
+            if(e.noteId==num){
+                notes.splice(i,1);
+            }
+        });
+        localStorage.setItem("notes",JSON.stringify(notes));
+
+    };
+
+}
+
+
+
 
 // User-interface
 class UI{
 
     static displayNotes(){
-        const notesList = [
-            {
-                title: "first",
-                note: "first note",
-                noteId: 4566,
-        },
-            {
-                title: "second",
-                note: "second note",
-                noteId: 4555,
-        }];
+        const notesList = storage.getNotes();
 
         let notes = notesList ;
 
@@ -68,6 +94,7 @@ class UI{
     };
 
 
+
 };
 
 document.addEventListener('DOMContentLoadeded',UI.displayNotes());
@@ -76,23 +103,37 @@ document.querySelector('#form').addEventListener('submit',(e)=>{
 
     e.preventDefault();
 
+    
     let title = document.getElementById('title');
     let note = document.getElementById('note');
     let noteId = document.getElementById('NoteId');
+    if(title.value==='' || note.value==='' || noteId.value===''){
+        UI.showAlert('info','Fill all the fields 🦊')
+    }else{
 
-    let noteObj = new makeNotes(title.value,note.value,noteId.value);
+    
+        let noteObj = new makeNotes(title.value,note.value,noteId.value);
 
-    // Add note to list
-    UI.addNotesToList(noteObj);
+        // Add note to localStorage
+        storage.addNotes(noteObj);
 
-    // clear user inputs
-    UI.clearFields()
+        // Add note to list
+        UI.addNotesToList(noteObj);
 
-    // show success alert
-    UI.showAlert('success','Note Added 🚀')
 
-    // Remove notes
-    removeNotes()
+        // clear user inputs
+        UI.clearFields()
+
+        // show success alert
+        UI.showAlert('success','Note Added 🚀')
+
+        // Remove notes
+        removeNotes()
+        
+
+
+    }
+
 });
 
 // Delete notes
@@ -103,12 +144,14 @@ let removeNotes = () => {
 
         if(e.target.classList.contains('delete')){
             e.target.parentElement.parentElement.remove();
+            storage.removeNotes(e.target.parentElement.previousElementSibling.innerHTML);
         };
         UI.showAlert('danger','Note Removed');
-
+        
     });
 
 };
+
 
 
 

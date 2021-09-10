@@ -152,7 +152,20 @@ let removeNotes = () => {
 
 };
 
+// Filter note
 
+let query = document.querySelector("#query");
+// console.log(query,searchBtn);
+query.addEventListener('input',function(e){
+    
+    searchQuery = e.target.value.toLowerCase();
+    let tBody = document.getElementById("table-body");
+    Array.from(tBody.getElementsByTagName('tr')).forEach(function(el){
+        if(el.getElementsByTagName('td')[0].innerText.toLowerCase().includes(searchQuery)){
+            el.style.display = "block";
+        }else{el.style.display="none"};
+    });
+});
 
 
 

@@ -40,7 +40,7 @@ class UI{
         tRow.innerHTML = `<td>${e.title}</td>
                           <td>${e.note}</td>
                           <td>${e.noteId}</td>
-                          <td><button class="btn btn-danger">X</button></td>
+                          <td><button class="btn btn-danger delete">X</button></td>
                           
                           `
         tBody.append(tRow);
@@ -84,12 +84,31 @@ document.querySelector('#form').addEventListener('submit',(e)=>{
 
     // Add note to list
     UI.addNotesToList(noteObj);
+
     // clear user inputs
     UI.clearFields()
+
     // show success alert
     UI.showAlert('success','Note Added 🚀')
 
+    // Remove notes
+    removeNotes()
 });
+
+// Delete notes
+let removeNotes = () => {
+
+    let tBody = document.querySelector('#table-body');
+    tBody.addEventListener('click',(e)=>{
+
+        if(e.target.classList.contains('delete')){
+            e.target.parentElement.parentElement.remove();
+        };
+        UI.showAlert('danger','Note Removed');
+
+    });
+
+};
 
 
 
